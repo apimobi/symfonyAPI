@@ -1,0 +1,20 @@
+# Cache & Logs
+var/cache
+var/logs
+
+# bin
+
+
+app/config/parameters.yml
+app/config/config_dev.yml
+app/config/*.local.yml
+
+web/bundles
+web/vendor
+web/assets
+
+bin
+vendor
+node_modules
+
+# specific
