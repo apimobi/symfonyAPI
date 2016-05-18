@@ -46,7 +46,6 @@
         "phpmd/phpmd" : "~2.4.2",
         "sebastian/phpcpd": "2.0.*",
         "mayflower/php-codebrowser": "~1.1",
-        "doctrine/doctrine-fixtures-bundle": "dev-master",
         "codeclimate/php-test-reporter": "dev-master"
     },
     "scripts": {

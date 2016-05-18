@@ -195,6 +195,56 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/css/app')) {
+            // _assetic_859e361
+            if ($pathinfo === '/css/app.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => '859e361',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_859e361',);
+            }
+
+            if (0 === strpos($pathinfo, '/css/app_ma')) {
+                // _assetic_859e361_0
+                if ($pathinfo === '/css/app_materialize_1.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '859e361',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_859e361_0',);
+                }
+
+                // _assetic_859e361_1
+                if ($pathinfo === '/css/app_main_2.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '859e361',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_859e361_1',);
+                }
+
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/js/app')) {
+            // _assetic_2bafce5
+            if ($pathinfo === '/js/app.js') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => '2bafce5',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_2bafce5',);
+            }
+
+            if (0 === strpos($pathinfo, '/js/app_')) {
+                // _assetic_2bafce5_0
+                if ($pathinfo === '/js/app_jquery.min_1.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '2bafce5',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_2bafce5_0',);
+                }
+
+                if (0 === strpos($pathinfo, '/js/app_ma')) {
+                    // _assetic_2bafce5_1
+                    if ($pathinfo === '/js/app_materialize.min_2.js') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => '2bafce5',  'pos' => 1,  '_format' => 'js',  '_route' => '_assetic_2bafce5_1',);
+                    }
+
+                    // _assetic_2bafce5_2
+                    if ($pathinfo === '/js/app_main_3.js') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => '2bafce5',  'pos' => 2,  '_format' => 'js',  '_route' => '_assetic_2bafce5_2',);
+                    }
+
+                }
+
+            }
+
+        }
+
         if (0 === strpos($pathinfo, '/_')) {
             // _wdt
             if (0 === strpos($pathinfo, '/_wdt') && preg_match('#^/_wdt/(?P<token>[^/]++)$#s', $pathinfo, $matches)) {
