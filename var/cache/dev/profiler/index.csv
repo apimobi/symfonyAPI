@@ -1,0 +1,5 @@
+f2698e,172.18.0.1,POST,http://local.www.brandalley.fr:8085/app_dev.php/api/v1/user/addProduct,1463563485,,200
+055da7,172.18.0.1,GET,http://local.www.brandalley.fr:8085/app_dev.php/api/v1/user/addProduct,1463563530,a8bee5,200
+a8bee5,172.18.0.1,POST,http://local.www.brandalley.fr:8085/app_dev.php/api/v1/user/addProduct,1463563530,,500
+e30d14,172.18.0.1,POST,http://local.www.brandalley.fr:8085/app_dev.php/api/v1/user/addProduct,1463563565,,200
+a07d9b,172.18.0.1,POST,http://local.www.brandalley.fr:8085/app_dev.php/api/v1/user/addProduct,1463563571,,200

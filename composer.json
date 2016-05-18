@@ -1,0 +1,107 @@
+{
+    "name": "vincent/BO",
+    "license": "proprietary",
+    "type": "project",
+    "description": "RESTfull API",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.6",
+        "symfony/symfony": "3.0.*",
+        "doctrine/orm": "^2.5",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-cache-bundle": "^1.2",
+        "symfony/swiftmailer-bundle": "^2.3",
+        "symfony/monolog-bundle": "^2.8",
+        "sensio/distribution-bundle": "^5.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "friendsofsymfony/rest-bundle": "^1.7",
+        "jms/serializer-bundle": "1.1.*",
+        "nelmio/api-doc-bundle": "^2.11",
+        "nelmio/cors-bundle": "^1.4",
+        "symfony/assetic-bundle": "dev-master",
+        "leafo/scssphp": "^0.6.3",
+        "patchwork/jsqueeze": "^2.0"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^3.0",
+        "phpunit/phpunit": "5.3.2",
+        "squizlabs/php_codesniffer": "2.*",
+        "escapestudios/symfony2-coding-standard": "~2.0",
+        "phploc/phploc": "~3.0.0",
+        "phpmd/phpmd" : "~2.4.2",
+        "sebastian/phpcpd": "2.0.*",
+        "mayflower/php-codebrowser": "~1.1",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "codeclimate/php-test-reporter": "dev-master"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "tests": [
+            "@phpcs",
+            "@phpunit",
+            "@phploc",
+            "@phpmd",
+            "@phpcpd",
+            "@phpcb",
+            "@phpmetrics"
+        ],
+        "delete-cache": [
+            "@doctrine-clear",
+            "@delete-cache-folders"
+        ],
+        "phpcs": "./bin/phpcs --report=checkstyle --ignore=*/Entity/*,*/Ressources/*,*/Tests/* --report-file=build/logs/checkstyle.xml src/",
+        "phpcbf": "./bin/phpcbf src/",
+        "phpunit" : "./bin/phpunit",
+        "phploc" : "./bin/phploc src/ --log-csv build/logs/phploc.csv",
+        "phpmd": "./bin/phpmd src xml app/phpmd.xml --reportfile build/logs/pmd.xml",
+        "phpcpd": "./bin/phpcpd --log-pmd build/logs/pmd-cpd.xml src/",
+        "phpcb": "./bin/phpcb --log build/logs --source src/ --output build/phpcb",
+        "phpmetrics": "./bin/phpmetrics --report-xml=build/logs/phpmetrics.xml --report-html=build/phpmetrics.html src/",
+        "doctrine-clear": "php bin/console doctrine:cache:clear-metadata && php bin/console doctrine:cache:clear-query && php bin/console doctrine:cache:clear-result",
+        "delete-cache-folders": "rm -rf var/cache/* && rm -rf var/logs/*"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    }
+}

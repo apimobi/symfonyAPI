@@ -1,0 +1,9 @@
+app:
+    resource: '@App/Controller'
+    type:     annotation
+
+app_api:
+    resource: '@App/Controller/Api'
+    type:     annotation
+    prefix:   /api/v1
+    options: { i18n: false , mobile: no_redirect, tablet: no_redirect, full: no_redirect }
