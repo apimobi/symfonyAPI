@@ -136,27 +136,44 @@ class ProductController extends FOSRestController
       */
     public function postProductAction(Request $request)
     {
-
-
-      // $item = new Product();
-      // $form = $this->createForm(ProductType::class, $item);
-      // $form->handleRequest($request);
-      //
-      // var_dump($form->isValid());
-      // // var_dump($form['about']->getErrors());
-      // die;
-      //
-      //
-      // if ($form->isValid()) {
-      //     $em = $this->get('doctrine')->getManager();
-      //
-      //     $em->persist($item);
-      //     $em->flush();
-      //     return ['data' => 'Ok'];
-      // }
-
       return $this->container->get('app.service.product')->create($request);
+    }
 
+    /**
+      * GET idProduct
+      *
+      * @ApiDoc(
+      *  section="Product",
+      *  resource=true,
+      *  description="This method will return idProduct",
+      *  statusCodes={
+      *      200="Returned when successful",
+      *      403="Returned when the user is not authorized",
+      *      404={
+      *        "Returned when the posts are not found"
+      *      }
+      * },
+      * parameters={
+      *      {
+      *          "name"="product",
+      *          "dataType"="string",
+      *          "description"="about",
+      *          "required"=true
+      *      }
+      *  }
+      * )
+      *
+      * @Extra\Route("/getIdproduct")
+      * @Extra\Method({"POST"})
+      * @Rest\View()
+      *
+      * @param Request $request
+      *
+      * @return json
+      */
+    public function getIdProductAction(Request $request)
+    {
+      return $this->container->get('app.service.product')->getIdproduct($request);
     }
 
 

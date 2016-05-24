@@ -235,4 +235,25 @@ class User implements UserInterface
     {
         return $this->datemodified;
     }
+
+    /**
+     * Set apiKey
+     *
+     * @param String $apiKey
+     *
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    /**
+     * Get apiKey
+     *
+     * @return String
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
 }

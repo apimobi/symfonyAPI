@@ -362,6 +362,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     }
                     not_app_api_product_postproduct:
 
+                    // app_api_product_getidproduct
+                    if ($pathinfo === '/api/v1/product/getIdproduct') {
+                        if ($this->context->getMethod() != 'POST') {
+                            $allow[] = 'POST';
+                            goto not_app_api_product_getidproduct;
+                        }
+
+                        return array (  '_controller' => 'App\\Controller\\Api\\ProductController::getIdProductAction',  '_route' => 'app_api_product_getidproduct',);
+                    }
+                    not_app_api_product_getidproduct:
+
                 }
 
                 if (0 === strpos($pathinfo, '/api/v1/user')) {
@@ -387,16 +398,27 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     }
                     not_app_api_user_postuser:
 
-                    // app_api_user_addproduct
-                    if ($pathinfo === '/api/v1/user/addProduct') {
+                    // app_api_user_postproduct
+                    if ($pathinfo === '/api/v1/user/postProductUser') {
                         if ($this->context->getMethod() != 'POST') {
                             $allow[] = 'POST';
-                            goto not_app_api_user_addproduct;
+                            goto not_app_api_user_postproduct;
                         }
 
-                        return array (  '_controller' => 'App\\Controller\\Api\\UserController::addProductAction',  '_route' => 'app_api_user_addproduct',);
+                        return array (  '_controller' => 'App\\Controller\\Api\\UserController::postProductAction',  '_route' => 'app_api_user_postproduct',);
                     }
-                    not_app_api_user_addproduct:
+                    not_app_api_user_postproduct:
+
+                    // app_api_user_getproduct
+                    if (0 === strpos($pathinfo, '/api/v1/user/getProductUser') && preg_match('#^/api/v1/user/getProductUser/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                            $allow = array_merge($allow, array('GET', 'HEAD'));
+                            goto not_app_api_user_getproduct;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_api_user_getproduct')), array (  '_controller' => 'App\\Controller\\Api\\UserController::getProductAction',));
+                    }
+                    not_app_api_user_getproduct:
 
                 }
 

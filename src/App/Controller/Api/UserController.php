@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View as View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\User;
+use App\Entity\Product;
 use App\Form\UserType;
 use App\Helper\ArrayHelper;
 
@@ -80,12 +81,6 @@ class UserController extends FOSRestController
       *          "dataType"="string",
       *          "description"="email",
       *          "required"=true
-      *      },
-      *      {
-      *          "name"="user[password]",
-      *          "dataType"="string",
-      *          "description"="password",
-      *          "required"=true
       *      }
       * }
       * )
@@ -121,21 +116,21 @@ class UserController extends FOSRestController
       * },
       * parameters={
       *      {
-      *          "name"="idUser",
-      *          "dataType"="int",
-      *          "description"="idUser",
+      *          "name"="product_user[idProduct]",
+      *          "dataType"="integer",
+      *          "description"="idProduct",
       *          "required"=true
       *      },
       *      {
-      *          "name"="idProduct",
-      *          "dataType"="int",
-      *          "description"="idProduct",
-      *          "required"=true
+      *          "name"="product_user[total]",
+      *          "dataType"="integer",
+      *          "description"="total",
+      *          "required"=false
       *      }
       * }
       * )
       *
-      * @Extra\Route("/addProduct")
+      * @Extra\Route("/postProductUser")
       * @Extra\Method({"POST"})
       * @Rest\View()
       *
@@ -143,14 +138,40 @@ class UserController extends FOSRestController
       *
       * @return json
       */
-    public function addProductAction(Request $request)
+    public function postProductAction(Request $request)
     {
-
-      $idUser = $request->request->get('idUser');
-      $idProduct = $request->request->get('idProduct');
-
-      return $this->container->get('app.service.user')->addProduct($idUser, $idProduct);
-
+      return $this->container->get('app.service.productuser')->postProductUser($request);
     }
+
+    /**
+      * Get Product User
+      *
+      * @ApiDoc(
+      *  section="User",
+      *  resource=true,
+      *  description="This method return Product User",
+      *  statusCodes={
+      *      200="Returned when successful",
+      *      403="Returned when the user is not authorized",
+      *      404={
+      *        "Returned when the posts are not found"
+      *      }
+      * }
+      * )
+      *
+      * @Extra\Route("/getProductUser/{id}")
+      * @Extra\ParamConverter("product")
+      * @Extra\Method({"GET"})
+      * @Rest\View()
+      *
+      * @param Request $request
+      * @param Product $product
+      * @return json
+      */
+    public function getProductAction(Request $request, Product $product)
+    {
+      return $this->container->get('app.service.productuser')->getProductUser($product);
+    }
+
 
 }

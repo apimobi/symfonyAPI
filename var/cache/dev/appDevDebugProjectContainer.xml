@@ -25,7 +25,6 @@
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
-      <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">appDevDebugProjectContainer</parameter>
@@ -39,6 +38,7 @@
     <parameter key="mailer_user">null</parameter>
     <parameter key="mailer_password">null</parameter>
     <parameter key="secret">4d35ceb5f6434c3a54622acafcbfeb769bc04e15</parameter>
+    <parameter key="app.secret">feaf16ga6arfaec94g9199h1y9om1fy6ipzr486135</parameter>
     <parameter key="locale">en</parameter>
     <parameter key="fragment.renderer.hinclude.global_template">null</parameter>
     <parameter key="fragment.path">/_fragment</parameter>
@@ -532,7 +532,6 @@
       <parameter>WebProfilerBundle</parameter>
       <parameter>SensioDistributionBundle</parameter>
       <parameter>SensioGeneratorBundle</parameter>
-      <parameter>DoctrineFixturesBundle</parameter>
     </parameter>
     <parameter key="assetic.twig_extension.class">Symfony\Bundle\AsseticBundle\Twig\AsseticExtension</parameter>
     <parameter key="assetic.twig_formula_loader.class">Assetic\Extension\Twig\TwigFormulaLoader</parameter>
@@ -2177,7 +2176,6 @@
               <argument>WebProfilerBundle</argument>
               <argument>SensioDistributionBundle</argument>
               <argument>SensioGeneratorBundle</argument>
-              <argument>DoctrineFixturesBundle</argument>
             </argument>
             <argument type="service">
               <service class="Symfony\Bundle\AsseticBundle\DefaultValueSupplier" public="false">
@@ -3892,33 +3890,6 @@
       </call>
       <call method="addResource">
         <argument type="service">
-          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
-            <tag name="assetic.templating.twig"/>
-            <tag name="assetic.formula_resource" loader="twig"/>
-            <argument type="collection">
-              <argument type="service">
-                <service class="%assetic.directory_resource.class%" public="false">
-                  <argument type="service" id="templating.loader"/>
-                  <argument>DoctrineFixturesBundle</argument>
-                  <argument>/var/www/symfony/app/Resources/DoctrineFixturesBundle/views</argument>
-                  <argument>/\.[^.]+\.twig$/</argument>
-                </service>
-              </argument>
-              <argument type="service">
-                <service class="%assetic.directory_resource.class%" public="false">
-                  <argument type="service" id="templating.loader"/>
-                  <argument>DoctrineFixturesBundle</argument>
-                  <argument>/var/www/symfony/vendor/doctrine/doctrine-fixtures-bundle/Resources/views</argument>
-                  <argument>/\.[^.]+\.twig$/</argument>
-                </service>
-              </argument>
-            </argument>
-          </service>
-        </argument>
-        <argument>twig</argument>
-      </call>
-      <call method="addResource">
-        <argument type="service">
           <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource" public="false">
             <tag name="assetic.templating.twig"/>
             <tag name="assetic.formula_resource" loader="twig"/>
@@ -3993,6 +3964,9 @@
       <argument type="service" id="service_container"/>
     </service>
     <service id="app.service.user" class="App\Services\UserService">
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="app.service.productuser" class="App\Services\ProductUserService">
       <argument type="service" id="service_container"/>
     </service>
     <service id="app.token_authenticator" class="App\Security\TokenAuthenticator">
@@ -4468,7 +4442,6 @@
                       <argument key="Symfony\Bundle\WebProfilerBundle">/var/www/symfony/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\DistributionBundle">/var/www/symfony/vendor/sensio/distribution-bundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\GeneratorBundle">/var/www/symfony/vendor/sensio/generator-bundle/Resources/config/serializer</argument>
-                      <argument key="Doctrine\Bundle\FixturesBundle">/var/www/symfony/vendor/doctrine/doctrine-fixtures-bundle/Resources/config/serializer</argument>
                     </argument>
                   </service>
                 </argument>
@@ -4496,7 +4469,6 @@
                       <argument key="Symfony\Bundle\WebProfilerBundle">/var/www/symfony/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\DistributionBundle">/var/www/symfony/vendor/sensio/distribution-bundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\GeneratorBundle">/var/www/symfony/vendor/sensio/generator-bundle/Resources/config/serializer</argument>
-                      <argument key="Doctrine\Bundle\FixturesBundle">/var/www/symfony/vendor/doctrine/doctrine-fixtures-bundle/Resources/config/serializer</argument>
                     </argument>
                   </service>
                 </argument>
@@ -4524,7 +4496,6 @@
                       <argument key="Symfony\Bundle\WebProfilerBundle">/var/www/symfony/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\DistributionBundle">/var/www/symfony/vendor/sensio/distribution-bundle/Resources/config/serializer</argument>
                       <argument key="Sensio\Bundle\GeneratorBundle">/var/www/symfony/vendor/sensio/generator-bundle/Resources/config/serializer</argument>
-                      <argument key="Doctrine\Bundle\FixturesBundle">/var/www/symfony/vendor/doctrine/doctrine-fixtures-bundle/Resources/config/serializer</argument>
                     </argument>
                   </service>
                 </argument>

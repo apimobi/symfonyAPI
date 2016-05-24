@@ -14,6 +14,11 @@ services:
         arguments:
             - '@service_container'
 
+    app.service.productuser:
+        class: App\Services\ProductUserService
+        arguments:
+            - '@service_container'
+
     app.token_authenticator:
         class: App\Security\TokenAuthenticator
         arguments: ['@doctrine.orm.entity_manager']

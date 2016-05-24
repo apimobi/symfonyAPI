@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class UserType extends AbstractType
+class ProductUserType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,23 +20,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
-            ->add(
-                'datecreated',
-                DateType::class,
-                [
-                    'label' => 'datecreated',
-                ]
-            )
-            ->add(
-                'datemodified',
-                DateType::class,
-                [
-                    'label' => 'datemodified',
-                ]
-            )
+            ->add('idProduct')
+            ->add('total')
             ->add('Valider', SubmitType::class)
         ;
     }
@@ -47,7 +32,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\User'
+            'data_class' => 'App\Entity\ProductUser'
         ));
     }
 }

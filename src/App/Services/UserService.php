@@ -19,10 +19,12 @@ class UserService
 {
 
   protected $container;
+  protected $user;
 
   public function __construct(ContainerInterface $container)
   {
       $this->container = $container;
+      $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
   }
 
   /*
@@ -37,40 +39,33 @@ class UserService
       $form->handleRequest($request);
 
       if ($form->isValid()) {
+
           $em = $this->container->get('doctrine')->getManager();
 
-          $em->persist($item);
-          $em->flush();
-          return ['data' => 'Ok'];
+          $user = $em->getRepository("App\Entity\User")->findOneBy(
+                  [
+                    'email'=>$item->getEmail()
+                  ]);
+          if(!$user)
+          {
+              $em->persist($item);
+              $em->flush();
+              $apiKey = md5($item->getEmail().$this->container->getParameter('app.secret').microtime());
+              $item->setApiKey($apiKey);
+              $em->persist($item);
+              $em->flush();
+              return [
+                  'data'   => 'Ok',
+                  'apiKey' => $apiKey
+                  ];
+          }else{
+            return [
+                'message'   => 'already exist',
+                ];
+          }
       }
 
       return [ 'form' => $form->createView() ];
   }
-
-  public function addProduct( $idUser, $idProduct)
-  {
-      $em = $this->container->get('doctrine')->getManager();
-      $productUser = $em->getRepository("App\Entity\ProductUser")->findOneBy(
-              [
-                'iduser'=>$idUser,
-                'idproduct'=>$idProduct
-              ]);
-
-      if(!$productUser)
-      {
-         $productUser = new ProductUser();
-         $productUser->setIduser($idUser);
-         $productUser->setIdproduct($idProduct);
-         $productUser->setDateupdate(new \DateTime());
-         $em->persist($productUser);
-         $em->flush();
-
-         $message = "new record";
-      }else{
-         $message = "already exist";
-      }
-
-      return [ 'message' => $message];
-  }
-
+  
 }
