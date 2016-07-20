@@ -341,7 +341,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             if (0 === strpos($pathinfo, '/api/v1')) {
                 if (0 === strpos($pathinfo, '/api/v1/product')) {
                     // app_api_product_getproduct
-                    if (preg_match('#^/api/v1/product/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    if (0 === strpos($pathinfo, '/api/v1/product/product') && preg_match('#^/api/v1/product/product/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
                         if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
                             $allow = array_merge($allow, array('GET', 'HEAD'));
                             goto not_app_api_product_getproduct;
@@ -372,6 +372,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                         return array (  '_controller' => 'App\\Controller\\Api\\ProductController::getIdProductAction',  '_route' => 'app_api_product_getidproduct',);
                     }
                     not_app_api_product_getidproduct:
+
+                    // app_api_product_getproducts
+                    if ($pathinfo === '/api/v1/product/all') {
+                        if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                            $allow = array_merge($allow, array('GET', 'HEAD'));
+                            goto not_app_api_product_getproducts;
+                        }
+
+                        return array (  '_controller' => 'App\\Controller\\Api\\ProductController::getProducts',  '_route' => 'app_api_product_getproducts',);
+                    }
+                    not_app_api_product_getproducts:
 
                 }
 

@@ -54,9 +54,9 @@ class ProductService
       return [ 'message' => '', 'form' => $form ];
   }
 
-  /*
-   * @parameter  Request $request
-   * @return
+  /**
+   * @param  Request $request
+   * @return Product
    */
   public function getIdproduct(Request $request)
   {
@@ -69,6 +69,25 @@ class ProductService
       if($product)
       {
          return $product;
+      }else{
+         return 'Not found';
+      }
+
+  }
+
+  /**
+   * @param  Request $request
+   * @return Array
+   */
+  public function getProducts(Request $request)
+  {
+      $em = $this->container->get('doctrine')->getManager();
+
+      $products = $em->getRepository("App\Entity\Product")->findAll();
+
+      if($products)
+      {
+         return $products;
       }else{
          return 'Not found';
       }
