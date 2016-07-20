@@ -4,10 +4,15 @@ var/logs
 
 # bin
 
+var/cache/
+var/logs/
+var/sessions/
 
 app/config/parameters.yml
 app/config/config_dev.yml
 app/config/*.local.yml
+
+vendor/
 
 web/bundles
 web/vendor

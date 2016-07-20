@@ -147,8 +147,8 @@ nelmio_cors:
             max_age: 3600
             hosts: ['^.*'] #Supposed to be http://localhost:3000 but I can't make a regex that works
 assetic:
-    # debug:          "%kernel.debug%"
-    use_controller:   true
+    debug:          "%kernel.debug%"
+    use_controller: '%kernel.debug%'
     # bundles:        [ ]
 
     filters:

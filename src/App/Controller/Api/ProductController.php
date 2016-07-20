@@ -200,7 +200,7 @@ class ProductController extends FOSRestController
       *
       * @return json
       */
-    public function getProducts(Request $request)
+    public function getProductsAction(Request $request)
     {
       return $this->container->get('app.service.product')->getProducts($request);
     }
