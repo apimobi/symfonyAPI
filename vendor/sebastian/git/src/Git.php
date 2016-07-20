@@ -53,11 +53,9 @@ class Git
      */
     public function getCurrentBranch()
     {
-        $output = $this->execute('symbolic-ref HEAD');
+        $output = $this->execute('symbolic-ref --short HEAD');
 
-        $tmp = explode('/', $output[0]);
-
-        return $tmp[2];
+        return $output[0];
     }
 
     /**
@@ -128,7 +126,10 @@ class Git
      */
     protected function execute($command)
     {
-        $command = 'LC_ALL=en_US.UTF-8 git -C ' . escapeshellarg($this->repositoryPath) . ' ' . $command;
+        $command = 'git -C ' . escapeshellarg($this->repositoryPath) . ' ' . $command;
+        if (DIRECTORY_SEPARATOR == '/') {
+            $command = 'LC_ALL=en_US.UTF-8 ' . $command;
+        }
         exec($command, $output, $returnValue);
 
         if ($returnValue !== 0) {
