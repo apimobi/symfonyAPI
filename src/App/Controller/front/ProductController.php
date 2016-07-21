@@ -37,6 +37,5 @@ class ProductController extends FOSRestController
                 'form' => $result['form']->createView(),
                 'showModal' => $showModal
                ];
-        // return $this->container->get('app.service.product')->create($request);
     }
 }
