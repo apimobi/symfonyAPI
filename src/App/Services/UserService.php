@@ -13,18 +13,21 @@ use App\Entity\User;
 use App\Entity\ProductUser;
 use App\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 
-class UserService
+class UserService implements ContainerAwareInterface
 {
+  use ContainerAwareTrait;
 
   protected $container;
   protected $user;
 
-  public function __construct(ContainerInterface $container)
+  public function init($secret)
   {
-      $this->container = $container;
-      $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+     $this->secret =  $secret;
+     $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
   }
 
   /*
@@ -50,7 +53,7 @@ class UserService
           {
               $em->persist($item);
               $em->flush();
-              $apiKey = md5($item->getEmail().$this->container->getParameter('app.secret').microtime());
+              $apiKey = md5($item->getEmail().$this->secret.microtime());
               $item->setApiKey($apiKey);
               $em->persist($item);
               $em->flush();
@@ -67,5 +70,5 @@ class UserService
 
       return [ 'form' => $form->createView() ];
   }
-  
+
 }

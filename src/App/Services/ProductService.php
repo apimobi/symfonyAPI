@@ -12,17 +12,15 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\Product;
 use App\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 
-class ProductService
+class ProductService implements ContainerAwareInterface
 {
+  use ContainerAwareTrait;
 
   protected $container;
-
-  public function __construct(ContainerInterface $container)
-  {
-      $this->container = $container;
-  }
 
   /*
    * @parameter  Request $request
