@@ -80,7 +80,6 @@ class ArrayHelper
      * @param type $array
      * @param type $valueToFind
      * @return type
-     * @todo not finished & not in use
      */
     public static function findPathByValue($array, $valueToFind)
     {
