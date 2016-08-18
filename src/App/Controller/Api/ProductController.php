@@ -6,11 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration as Extra;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\View\View as View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\Product;
-use App\Form\ProductType;
-use App\Helper\ArrayHelper;
 
 /**
 * @Extra\Route("/product")
