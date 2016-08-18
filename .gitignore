@@ -12,11 +12,14 @@ app/config/parameters.yml
 app/config/config_dev.yml
 app/config/*.local.yml
 
+src/.htaccess
+
 vendor/
 
 web/bundles
 web/vendor
 web/assets
+web/.htaccess
 
 bin
 vendor
