@@ -44,8 +44,9 @@ class ArrayHelper
             }
 
             $pointer = &$config;
+            $max = sizeof($levels);
 
-            for ($i=0; $i < sizeof($levels); $i++) {
+            for ($i=0; $i < $max ; $i++) {
 
                 if (!isset($pointer[$levels[$i]])) {
                     $pointer[$levels[$i]] = array();
@@ -54,8 +55,8 @@ class ArrayHelper
                 $pointer = &$pointer[$levels[$i]];
             }
 
-            if (@unserialize($row['value'])) {
-                $pointer = @unserialize($row['value']);
+            if (unserialize($row['value'])) {
+                $pointer = unserialize($row['value']);
             } else {
 
                 if (strpos($row['value'], ' ') || strpos($row['value'], '-')) {
@@ -67,15 +68,6 @@ class ArrayHelper
                         $pointer = $row['value'];
                     }
                 }
-
-                /*
-                if ((string) (int)($row['value'])) {
-                    $pointer = (int) $row['value'];
-                } else {
-                    $pointer = $row['value'];
-                }
-                */
-
             }
 
         }

@@ -33,7 +33,7 @@ class ProductController extends FOSRestController
       * }
       * )
       *
-      * @Extra\Route("/{id}")
+      * @Extra\Route("/product/{id}")
       * @Extra\ParamConverter("product", options={"repository_method"="findOne"})
       * @Extra\Method({"GET"})
       * @Rest\View()
@@ -176,6 +176,33 @@ class ProductController extends FOSRestController
       return $this->container->get('app.service.product')->getIdproduct($request);
     }
 
-
+    /**
+      * GET all Products
+      *
+      * @ApiDoc(
+      *  section="Product",
+      *  resource=true,
+      *  description="This method will return all Products",
+      *  statusCodes={
+      *      200="Returned when successful",
+      *      403="Returned when the user is not authorized",
+      *      404={
+      *        "Returned when the posts are not found"
+      *      }
+      * }
+      * )
+      *
+      * @Extra\Route("/all")
+      * @Extra\Method({"GET"})
+      * @Rest\View()
+      *
+      * @param Request $request
+      *
+      * @return json
+      */
+    public function getProductsAction(Request $request)
+    {
+      return $this->container->get('app.service.product')->getProducts($request);
+    }
 
 }

@@ -12,17 +12,15 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\Product;
 use App\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 
-class ProductService
+class ProductService implements ContainerAwareInterface
 {
+  use ContainerAwareTrait;
 
   protected $container;
-
-  public function __construct(ContainerInterface $container)
-  {
-      $this->container = $container;
-  }
 
   /*
    * @parameter  Request $request
@@ -54,9 +52,9 @@ class ProductService
       return [ 'message' => '', 'form' => $form ];
   }
 
-  /*
-   * @parameter  Request $request
-   * @return
+  /**
+   * @param  Request $request
+   * @return Product
    */
   public function getIdproduct(Request $request)
   {
@@ -69,6 +67,25 @@ class ProductService
       if($product)
       {
          return $product;
+      }else{
+         return 'Not found';
+      }
+
+  }
+
+  /**
+   * @param  Request $request
+   * @return Array
+   */
+  public function getProducts(Request $request)
+  {
+      $em = $this->container->get('doctrine')->getManager();
+
+      $products = $em->getRepository("App\Entity\Product")->findAll();
+
+      if($products)
+      {
+         return $products;
       }else{
          return 'Not found';
       }

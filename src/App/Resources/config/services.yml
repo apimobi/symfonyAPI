@@ -6,18 +6,20 @@ services:
 
     app.service.product:
         class: App\Services\ProductService
-        arguments:
-            - '@service_container'
+        calls:
+            - [setContainer, ['@service_container']]
 
     app.service.user:
         class: App\Services\UserService
-        arguments:
-            - '@service_container'
+        calls:
+            - [setContainer, ['@service_container']]
+            - [init, ['%secret%']]
 
     app.service.productuser:
         class: App\Services\ProductUserService
-        arguments:
-            - '@service_container'
+        calls:
+            - [setContainer, ['@service_container']]
+            - [init, []]
 
     app.token_authenticator:
         class: App\Security\TokenAuthenticator

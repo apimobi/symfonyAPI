@@ -14,20 +14,21 @@ use App\Entity\ProductUser;
 use App\Form\ProductUserType;
 use App\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 
-class ProductUserService
+class ProductUserService implements ContainerAwareInterface
 {
+  use ContainerAwareTrait;
 
   protected $container;
   protected $user;
 
-  public function __construct(ContainerInterface $container)
+  public function init()
   {
-      $this->container = $container;
-      $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+     $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
   }
-
 
   public function postProductUser($request)
   {
@@ -77,6 +78,7 @@ class ProductUserService
 
   public function getProductUser($product)
   {
+
       $em = $this->container->get('doctrine')->getManager();
       $return = [];
 
