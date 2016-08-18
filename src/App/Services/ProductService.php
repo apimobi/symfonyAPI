@@ -10,7 +10,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View as View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\Product;
-use App\Form\ProductType;
+use App\Form\Type\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;

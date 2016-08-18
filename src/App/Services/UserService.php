@@ -11,7 +11,7 @@ use FOS\RestBundle\View\View as View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\User;
 use App\Entity\ProductUser;
-use App\Form\UserType;
+use App\Form\Type\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
