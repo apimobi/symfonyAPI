@@ -2,32 +2,30 @@
 
 namespace App\Services;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration as Extra;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\View\View as View;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\User;
-use App\Entity\ProductUser;
 use App\Form\Type\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\Form\FormFactoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
-
-class UserService implements ContainerAwareInterface
+class UserService
 {
-  use ContainerAwareTrait;
 
-  protected $container;
   protected $user;
+  protected $forms;
+  protected $doctrine;
+  protected $security;
 
-  public function init($secret)
+  /**
+   *
+   * @param FormFactoryInterface $forms
+   * @param Doctrine             $doctrine
+   */
+  public function __construct(FormFactoryInterface $forms, Doctrine $doctrine, $secret)
   {
-     $this->secret =  $secret;
-     $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+      $this->forms = $forms;
+      $this->doctrine = $doctrine;
+      $this->secret =  $secret;
   }
 
   /*
@@ -38,12 +36,12 @@ class UserService implements ContainerAwareInterface
   {
 
       $item = new User();
-      $form = $this->container->get('form.factory')->create(UserType::class, $item);
+      $form = $this->forms->create(UserType::class, $item);
       $form->handleRequest($request);
 
       if ($form->isValid()) {
 
-          $em = $this->container->get('doctrine')->getManager();
+          $em = $this->doctrine->getManager();
 
           $user = $em->getRepository("App\Entity\User")->findOneBy(
                   [

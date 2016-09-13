@@ -14,33 +14,48 @@ use App\Form\Type\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\Form\FormFactoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 
-class ProductService implements ContainerAwareInterface
+class ProductService
 {
-  use ContainerAwareTrait;
 
-  protected $container;
+  protected $forms;
+  protected $doctrine;
 
-  /*
-   * @parameter  Request $request
+  /**
+   *
+   * @param FormFactoryInterface $forms
+   * @param Doctrine             $doctrine
+   */
+  public function __construct(FormFactoryInterface $forms, Doctrine $doctrine)
+  {
+      $this->forms = $forms;
+      $this->doctrine = $doctrine;
+  }
+
+
+  /**
+   *
+   * @param  Request $request
    * @return
    */
   public function create(Request $request)
   {
 
       $item = new Product();
-      $form = $this->container->get('form.factory')->create(ProductType::class, $item);
+      $form = $this->forms->create(ProductType::class, $item);
       $form->handleRequest($request);
 
       if ($form->isValid()) {
-          $em = $this->container->get('doctrine')->getManager();
+          $em = $this->doctrine->getManager();
 
           $em->persist($item);
           $em->flush();
           return [
             'message' => 'success',
-            'form'    => $this->container->get('form.factory')->create(ProductType::class, new Product())
+            'form'    => $this->forms->create(ProductType::class, new Product())
           ];
       }else if(!$form->isValid() && $form->isSubmitted()){
         return [
@@ -58,7 +73,7 @@ class ProductService implements ContainerAwareInterface
    */
   public function getIdproduct(Request $request)
   {
-      $em = $this->container->get('doctrine')->getManager();
+      $em = $this->doctrine->getManager();
 
       $product = $em->getRepository("App\Entity\Product")->findOneBy(
               [
@@ -79,7 +94,7 @@ class ProductService implements ContainerAwareInterface
    */
   public function getProducts(Request $request)
   {
-      $em = $this->container->get('doctrine')->getManager();
+      $em = $this->doctrine->getManager();
 
       $products = $em->getRepository("App\Entity\Product")->findAll();
 

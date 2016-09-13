@@ -6,14 +6,16 @@ services:
 
     app.service.product:
         class: App\Services\ProductService
-        calls:
-            - [setContainer, ['@service_container']]
+        arguments:
+          - '@form.factory'
+          - '@doctrine'
 
     app.service.user:
         class: App\Services\UserService
-        calls:
-            - [setContainer, ['@service_container']]
-            - [init, ['%secret%']]
+        arguments:
+          - '@form.factory'
+          - '@doctrine'
+          - '%secret%'
 
     app.service.productuser:
         class: App\Services\ProductUserService
