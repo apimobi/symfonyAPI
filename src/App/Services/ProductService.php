@@ -2,18 +2,9 @@
 
 namespace App\Services;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration as Extra;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\View\View as View;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\Product;
 use App\Form\Type\ProductType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Form\FormFactoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
@@ -92,7 +83,7 @@ class ProductService
    * @param  Request $request
    * @return Array
    */
-  public function getProducts(Request $request)
+  public function getProducts()
   {
       $em = $this->doctrine->getManager();
 

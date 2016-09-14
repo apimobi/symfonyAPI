@@ -17,6 +17,7 @@ class ProductController extends FOSRestController
     /**
       *
       * @Extra\Route("/post")
+      * @Extra\Method({"GET|POST"})
       * @Template
       */
     public function postAction(Request $request)

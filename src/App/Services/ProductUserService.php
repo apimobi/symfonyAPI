@@ -2,37 +2,38 @@
 
 namespace App\Services;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration as Extra;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\View\View as View;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use App\Entity\User;
 use App\Entity\ProductUser;
 use App\Form\Type\ProductUserType;
 use App\Form\Type\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Form\FormFactoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 
-class ProductUserService implements ContainerAwareInterface
+class ProductUserService
 {
-  use ContainerAwareTrait;
 
-  protected $container;
+  protected $forms;
+  protected $doctrine;
   protected $user;
 
-  public function init()
+  /**
+   *
+   * @param FormFactoryInterface $forms
+   * @param Doctrine             $doctrine
+   */
+  public function __construct(FormFactoryInterface $forms, Doctrine $doctrine, TokenStorage $security)
   {
-     $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
+      $this->forms = $forms;
+      $this->doctrine = $doctrine;
+      $this->user = $security->getToken()->getUser();
   }
 
   public function postProductUser($request)
   {
-      $em = $this->container->get('doctrine')->getManager();
+      $em = $this->doctrine->getManager();
       $idProduct = $request->request->get('product_user')['idProduct'];
       $total = $request->request->get('product_user')['total'];
 
@@ -47,7 +48,7 @@ class ProductUserService implements ContainerAwareInterface
          $productUser = new ProductUser();
       }
 
-      $form = $this->container->get('form.factory')->create(ProductUserType::class, $productUser);
+      $form = $this->forms->create(ProductUserType::class, $productUser);
       $form->handleRequest($request);
 
       if ($form->isValid()) {
@@ -78,9 +79,7 @@ class ProductUserService implements ContainerAwareInterface
 
   public function getProductUser($product)
   {
-
-      $em = $this->container->get('doctrine')->getManager();
-      $return = [];
+      $em = $this->doctrine->getManager();
 
       if($product)
       {
@@ -90,6 +89,7 @@ class ProductUserService implements ContainerAwareInterface
                     'iduser'=>$this->user->getIduser(),
                     'idproduct'=>$product->getIdproduct()
                   ]);
+          var_dump($productUser);
 
           if($productUser)
           {

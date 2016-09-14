@@ -19,9 +19,10 @@ services:
 
     app.service.productuser:
         class: App\Services\ProductUserService
-        calls:
-            - [setContainer, ['@service_container']]
-            - [init, []]
+        arguments :
+          - '@form.factory'
+          - '@doctrine'
+          - '@security.token_storage'
 
     app.token_authenticator:
         class: App\Security\TokenAuthenticator

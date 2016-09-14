@@ -12,6 +12,7 @@ class TestController extends FOSRestController
       * home
       *
       * @Extra\Route("/", name="default")
+      * @Extra\Method({"GET|POST"})
       */
     public function indexAction(Request $request)
     {

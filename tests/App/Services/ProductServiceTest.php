@@ -91,8 +91,7 @@ class ProductServiceTest extends  \PHPUnit_Framework_TestCase
 
     public function testGetProducts()
     {
-        $requestMock = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->setMethods(array('request', 'get'))->getMock();
-        $result = $this->productService->getProducts($requestMock);
+        $result = $this->productService->getProducts();
 
         $this->assertGreaterThan(0, count($result));
         $this->assertArrayHasKey('product0', $result);
