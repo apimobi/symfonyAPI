@@ -17,7 +17,7 @@ class ProductController extends FOSRestController
     /**
       *
       * @Extra\Route("/post")
-      * @Extra\Method({"GET|POST"})
+      * @Extra\Method({"POST"})
       * @Template
       */
     public function postAction(Request $request)
@@ -33,4 +33,5 @@ class ProductController extends FOSRestController
                 'showModal' => $showModal
                ];
     }
+
 }

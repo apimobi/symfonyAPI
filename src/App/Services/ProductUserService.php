@@ -3,10 +3,8 @@
 namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\User;
 use App\Entity\ProductUser;
 use App\Form\Type\ProductUserType;
-use App\Form\Type\UserType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Form\FormFactoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
@@ -31,7 +29,7 @@ class ProductUserService
       $this->user = $security->getToken()->getUser();
   }
 
-  public function postProductUser($request)
+  public function postProductUser(Request $request)
   {
       $em = $this->doctrine->getManager();
       $idProduct = $request->request->get('product_user')['idProduct'];
@@ -83,13 +81,11 @@ class ProductUserService
 
       if($product)
       {
-
           $productUser = $em->getRepository("App\Entity\ProductUser")->findOneBy(
                   [
                     'iduser'=>$this->user->getIduser(),
                     'idproduct'=>$product->getIdproduct()
                   ]);
-          var_dump($productUser);
 
           if($productUser)
           {
