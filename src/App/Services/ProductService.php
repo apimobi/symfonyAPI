@@ -36,7 +36,7 @@ class ProductService
   {
 
       $item = new Product();
-      $form = $this->forms->create(ProductType::class, $item);
+      $form = $this->forms->create(ProductType::class, $item, array( 'action' => 'post'));
       $form->handleRequest($request);
 
       if ($form->isValid()) {

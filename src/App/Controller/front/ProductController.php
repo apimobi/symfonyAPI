@@ -16,6 +16,23 @@ class ProductController extends FOSRestController
 
     /**
       *
+      * @Extra\Route("/")
+      * @Extra\Method({"GET"})
+      * @Template
+      */
+    public function indexAction(Request $request)
+    {
+
+        $result = $this->container->get('app.service.product')->create($request);
+
+        return [
+                'form' => $result['form']->createView()
+               ];
+    }
+
+
+    /**
+      *
       * @Extra\Route("/post")
       * @Extra\Method({"POST"})
       * @Template
@@ -26,12 +43,19 @@ class ProductController extends FOSRestController
         $result = $this->container->get('app.service.product')->create($request);
 
         $showModal = false;
-        if($result['message'] == 'success')  $showModal = true;
+        if($result['message'] == 'success')
+        {
+          $showModal = true;
 
-        return [
-                'form' => $result['form']->createView(),
-                'showModal' => $showModal
-               ];
+          return [
+                  'form' => $result['form']->createView(),
+                  'showModal' => $showModal
+                 ];
+        }else{
+          return $this->redirectToRoute('app_front_product_index', [
+                  'request' => $request
+                ], 302);
+        }
     }
 
 }

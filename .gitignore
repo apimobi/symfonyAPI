@@ -16,13 +16,8 @@ src/.htaccess
 
 vendor/
 
-web/bundles
-web/vendor
-web/assets
 web/.htaccess
 
-bin
 vendor
-node_modules
 
 # specific
