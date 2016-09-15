@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\ProductUser;
+use App\Entity\Product;
 use App\Form\Type\ProductUserType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -75,7 +76,7 @@ class ProductUserService
 
   }
 
-  public function getProductUser($product)
+  public function getProductUser(Product $product)
   {
       $em = $this->doctrine->getManager();
 
